@@ -60,3 +60,18 @@ public class QueenBoard {
 
     }
 }
+
+
+solver(int col) {
+    if(col is size) {
+	base case;
+    }
+    for(each row) {
+	place a queen;
+	if (solver(col+1)) {
+	    return true;
+	}
+	else { removeQueen;}
+    }
+    return false;
+}
