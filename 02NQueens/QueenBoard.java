@@ -35,7 +35,16 @@ public class QueenBoard {
     }
 
     public String toString() {
-
+	String bb = "";
+	for(int x = 0; x < board.length; x++) {
+	    for (int y = 0; y < board[x].length; y++) {
+		if (board[x][y] = -1) {
+		    bb += "Q ";
+		}
+		else bb += "_ ";
+	    }
+	    bb += "\n";
+	}
     }
 
     public boolean toSolve() {
