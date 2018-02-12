@@ -1,3 +1,8 @@
+//size 2 and 3 wont work
+//negatives wont work
+//cant call solve twice bc its not 0 anymore
+//put 1 in each coloumn 
+
 public class QueenBoard {
 
     private int[][]board;
