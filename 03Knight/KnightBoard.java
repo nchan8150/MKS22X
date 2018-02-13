@@ -1,4 +1,10 @@
-public KnightBoard(int startingRows, int StartingCols) {
+public KnightBoard(int startingRows, int startingCols) {
+    private int [][] board;
+
+    public KnightBoard(int startingRows, int startingCols) {
+	board = new int[startingRows][startingCols];
+    }
+
     public String toString() {
 
     }
