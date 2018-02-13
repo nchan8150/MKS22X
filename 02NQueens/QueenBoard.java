@@ -107,8 +107,30 @@ public class QueenBoard {
 
 
     public int countSolutions() {
-	return 0;
+	for(int x = 0; x < board.length; x++) {
+	    for(int y = 0; y < board[x].length; y++) {
+		if(board[x][y] != 0) {
+		    throw new IllegalStateException();
+		}
+	    }
+	}
+	return countSolutionsHelp(0);
     }
+
+    public int countSolutionsHelp(int col) {
+	if(col >= board.length) {
+	    return 1;
+	}
+	int total = 0;
+	for(int x = 0; x < board.length; x++) {
+	    if(addQueen(x, col)) {
+		total += countSolutionsHelp(col+1);
+		removeQueen(x,col);
+	    }
+	}
+	return total;
+    }
+    
 }
 
 
