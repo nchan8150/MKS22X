@@ -1,14 +1,17 @@
 //learned and inspired by jerry
 
 public class KnightBoard{
-    private int [][] board;
-    private int[] moveX;
-    private int[] moveY;
+    private int[][] board;
+    private int[] moveX = new int[]{1,1,2,2,-1,-1,-2,-2};
+    private int[] moveY = new int[]{2,-2,1,-1,2,-2,1,-1};
+    
 
     public KnightBoard(int startingRows, int startingCols) {
 	board = new int[startingRows][startingCols];
-	int[] moveX = new int[]{1,1,2,2,-1,-1,-2,-2};
-	int[] moveY = new int[]{2,-2,1,-1,2,-2,1,-1};
+	if(startingRows < 0 || startingCols < 0) {
+	    throw new IllegalArgumentException();
+	}
+	
     }
 
     public String toString() {
@@ -36,6 +39,7 @@ public class KnightBoard{
 	if (startingRow < 0 || startingCol < 0) {
 	    throw new IllegalArgumentException();
 	}
+	/*
 	for(int x = 0; x < board.length; x++) {
 	    for(int y = 0; y < board[x].length; y++){
 		if(board[x][y] != 0){
@@ -43,11 +47,12 @@ public class KnightBoard{
 		}
 	    }
 	}
+	*/
 	return solveH(startingRow, startingCol, 1);
     }
 
     private boolean solveH(int row, int col, int level) {
-	if(board[row].length * board.length == level) {
+	if(board[0].length * board.length == level) {
 	    board[row][col] = level;
 	    return true;
 	}
@@ -59,11 +64,13 @@ public class KnightBoard{
 	       newRow < board.length &&
 	       newCol >= 0 &&
 	       newCol < board[1].length) {
-		board[row][col] = level;
-		if(solveH(newRow, newCol, level + 1)) {
-		    return true;
+		if (board[row][col] == 0) {		    
+		    board[row][col] = level;
+		    if(solveH(newRow, newCol, level + 1)) {
+			return true;
+		    }
+		    board[row][col] = 0;
 		}
-		board[row][col] = 0;
 	    }
 	}
 	return false;
@@ -73,6 +80,7 @@ public class KnightBoard{
 	if (startingRow < 0 || startingCol < 0) {
 	    throw new IllegalArgumentException();
 	}
+	/*
 	for(int x = 0; x < board.length; x++) {
 	    for(int y = 0; y < board[x].length; y++){
 		if(board[x][y] != 0){
@@ -80,6 +88,7 @@ public class KnightBoard{
 		}
 	    }
 	}
+	*/
 	return countSolutionsH(startingRow, startingCol, 1);
     }
 
@@ -92,9 +101,18 @@ public class KnightBoard{
 	for (int x = 0; x < 8; x++) {
 	    int newRow = row + moveX[x];
 	    int newCol = col + moveY[x];
-	    total += countSolutionsH(newRow, newCol, level + 1);
+	    if(board[row][col] == 0 &&
+	       newRow >= 0 &&
+	       newRow < board.length &&
+	       newCol >= 0 &&
+	       newCol < board[1].length) {
+		if(board[row][col] == 0) {
+		    board[row][col] = level;
+		    total += countSolutionsH(newRow, newCol, level + 1);
+		}
+		board[row][col] = 0;
+	    }
 	}
-	board[row][col] = 0;
 	return total;
     }
     
