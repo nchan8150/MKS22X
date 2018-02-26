@@ -1,5 +1,5 @@
 //Thank you Crystal for a cewl driver
-
+public class Driver {
 public static void main(String[] args){
     KnightBoard a = new KnightBoard(3,3);
 
@@ -97,3 +97,4 @@ public static void main(String[] args){
     System.out.println(d.countSolutions(0,0)); //prints 304
 
   }
+}
