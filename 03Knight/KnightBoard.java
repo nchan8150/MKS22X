@@ -7,10 +7,11 @@ public class KnightBoard{
     
 
     public KnightBoard(int startingRows, int startingCols) {
-	board = new int[startingRows][startingCols];
 	if(startingRows < 0 || startingCols < 0) {
 	    throw new IllegalArgumentException();
 	}
+	board = new int[startingRows][startingCols];
+	
 	
     }
 
@@ -39,7 +40,7 @@ public class KnightBoard{
 	if (startingRow < 0 || startingCol < 0) {
 	    throw new IllegalArgumentException();
 	}
-	/*
+	
 	for(int x = 0; x < board.length; x++) {
 	    for(int y = 0; y < board[x].length; y++){
 		if(board[x][y] != 0){
@@ -47,7 +48,7 @@ public class KnightBoard{
 		}
 	    }
 	}
-	*/
+	
 	return solveH(startingRow, startingCol, 1);
     }
 
@@ -64,7 +65,7 @@ public class KnightBoard{
 	       newRow < board.length &&
 	       newCol >= 0 &&
 	       newCol < board[1].length) {
-		if (board[row][col] == 0) {		    
+		if (board[newRow][newCol] == 0) {		    
 		    board[row][col] = level;
 		    if(solveH(newRow, newCol, level + 1)) {
 			return true;
@@ -78,9 +79,9 @@ public class KnightBoard{
 
     public int countSolutions(int startingRow, int startingCol) {
 	if (startingRow < 0 || startingCol < 0) {
-	    throw new IllegalArgumentException();
+ 	    throw new IllegalArgumentException();
 	}
-	/*
+	
 	for(int x = 0; x < board.length; x++) {
 	    for(int y = 0; y < board[x].length; y++){
 		if(board[x][y] != 0){
@@ -88,7 +89,7 @@ public class KnightBoard{
 		}
 	    }
 	}
-	*/
+	
 	return countSolutionsH(startingRow, startingCol, 1);
     }
 
@@ -106,7 +107,7 @@ public class KnightBoard{
 	       newRow < board.length &&
 	       newCol >= 0 &&
 	       newCol < board[1].length) {
-		if(board[row][col] == 0) {
+		if(board[newRow][newCol] == 0) {
 		    board[row][col] = level;
 		    total += countSolutionsH(newRow, newCol, level + 1);
 		}
