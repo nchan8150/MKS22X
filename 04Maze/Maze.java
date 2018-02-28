@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
-public class Maze{
 
+public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
@@ -22,8 +22,11 @@ public class Maze{
 
     */
 
-    public Maze(String filename){
-        //COMPLETE CONSTRUCTOR
+    public Maze(String filename) throws FileNotFoundException{
+        Scanner file = new Scanner(new FileReader(filename));
+	while(file.hasNext()) {
+	    wordsToAdd.add(file.next());
+	}
     }
     
 
