@@ -4,7 +4,8 @@ import java.io.*;
 public class Maze{
 
     private char[][]maze;
-    private boolean animate;//false by default
+    private boolean animate; //false by default
+    private int[][] move = {{1,0},{-1,0},{0,1},{0,-1}};
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -23,10 +24,47 @@ public class Maze{
     */
 
     public Maze(String filename) throws FileNotFoundException{
-        Scanner file = new Scanner(new FileReader(filename));
-	while(file.hasNext()) {
-	    wordsToAdd.add(file.next());
+	int col = 0;
+	int row = 0;
+	String sMaze = "";
+	File text= new File(filename);
+	Scanner file = new Scanner(text);
+	while(file.hasNextLine()) {
+	    String line = file.nextLine();
+	    sMaze += line + "\n";
+	    col = line.length();
+	    row++;
 	}
+	maze = new char[row][col];
+	int i = 0;
+	int numE = 0;
+	int numS = 0;
+	for (int x = 0; x < row; x++) {
+	    for (int y = 0; y < col; y++) {
+		if(sMaze.charAt(i) == 'E') {
+		    numE++;
+		}
+		if(sMaze.charAt(i) == 'S') {
+		    numS++;
+		}
+		maze[x][y] = sMaze.charAt(i);
+		i++;
+	    }
+	}
+	if(numE != 1 || numS != 1) {
+	    throw new IllegalStateException("You're ove! You need 1 E and 1 S");
+	}
+    }
+
+    public String toString() {
+	String ans = "";
+	for (int x = 0; x < maze.length; x++) {
+	    for(int y = 0; y < maze[0].length; y++) {
+		ans += maze[x][y];
+	    }
+	    ans += "\n";
+	}
+	return ans;
     }
     
 
@@ -65,15 +103,24 @@ public class Maze{
     public int solve(){
 
             //find the location of the S. 
-
-
+	int Sx = 0;
+	int Sy = 0;
+	for (int x = 0; x < maze.length; x++) {
+	    for(int y = 0; y < maze[0].length; y++) {
+		if(maze[x][y] == 'S') {
+		    Sx = x;
+		    Sy = y;
+		}
+	    }
+	}
+      
             //erase the S
-
+	maze[Sx][Sy] = ' ';
 
             //and start solving at the location of the s.
 
             //return solve(???,???);
-
+	return solve(Sx,Sy,0);
     }
 
     /*
@@ -94,7 +141,7 @@ public class Maze{
             Note: This is not required based on the algorithm, it is just nice visually to see.
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private int solve(int row, int col, int numAt){ //you can add more parameters since this is private
 
 
         //automatic animation! You are welcome.
@@ -107,8 +154,24 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
+	//maze[row][col] = '@';
+	for(int x = 0; x < 4; x++) {
+	    maze[row][col] = '@';
+	    int rNext = row + move[x][0];
+	    int cNext = col + move[x][1];
+	    if(maze[rNext][cNext] == 'E') {
+		return 1;
+	    }
+	    if (maze[rNext][cNext] == ' ' || maze[rNext][cNext] == 'E') {
+		int ans = solve(rNext,cNext, numAt+1);
+		if (ans != 0) {
+		    return ans;
+		}
+	    }
+	    maze[rNext][cNext] = '.';
+	}
 
-        return -1; //so it compiles
+	    return -1; //so it compiles
     }
 
 
