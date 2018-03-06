@@ -1,3 +1,4 @@
+//Had a lot of help from jerry sigh im bad at this
 import java.util.*;
 import java.io.*;
 
@@ -24,36 +25,39 @@ public class Maze{
     */
 
     public Maze(String filename) throws FileNotFoundException{
-	int col = 0;
-	int row = 0;
-	String sMaze = "";
-	File text= new File(filename);
-	Scanner file = new Scanner(text);
-	while(file.hasNextLine()) {
-	    String line = file.nextLine();
-	    sMaze += line + "\n";
-	    col = line.length();
-	    row++;
-	}
-	maze = new char[row][col];
-	int i = 0;
-	int numE = 0;
+	animate = false;
+	File text = new File(filename);
+        Scanner file = new Scanner(text);
+        String ans = "";
+        int cols = 0;
+        int rows = 0;
+        while(file.hasNextLine()){
+            String line = file.nextLine();
+            cols = line.length();
+	    rows++;
+	    ans += line;
+     
+        }
+	maze = new char[rows][cols];
+	int x = 0;
 	int numS = 0;
-	for (int x = 0; x < row; x++) {
-	    for (int y = 0; y < col; y++) {
-		if(sMaze.charAt(i) == 'E') {
-		    numE++;
-		}
-		if(sMaze.charAt(i) == 'S') {
-		    numS++;
-		}
-		maze[x][y] = sMaze.charAt(i);
-		i++;
+	int numE = 0;
+	for (int r = 0; r < rows; r ++){
+	    for (int c = 0; c < cols; c++){
+		    maze[r][c] = ans.charAt(x);
+            if (ans.charAt(x) == 'S'){
+                numS++;
+            }
+            if (ans.charAt(x) == 'E'){
+                numE++;
+            }
+	       x++;
 	    }
 	}
-	if(numE != 1 || numS != 1) {
-	    throw new IllegalStateException("You're ove! You need 1 E and 1 S");
-	}
+    if (numS != 1 || numE != 1){
+    throw new IllegalStateException("num of S and E incorrect!");
+    }
+    
     }
 
     public String toString() {
@@ -153,22 +157,23 @@ public class Maze{
             wait(20);
         }
 
+	 if(maze[row][col] == 'E') {
+		return numAt;
+	    }
+
         //COMPLETE SOLVE
 	//maze[row][col] = '@';
-	for(int x = 0; x < 4; x++) {
+	 for(int x[]: move) {
 	    maze[row][col] = '@';
-	    int rNext = row + move[x][0];
-	    int cNext = col + move[x][1];
-	    if(maze[rNext][cNext] == 'E') {
-		return 1;
-	    }
-	    if (maze[rNext][cNext] == ' ' || maze[rNext][cNext] == 'E') {
-		int ans = solve(rNext,cNext, numAt+1);
-		if (ans != 0) {
+	    if (maze[row+x[0]][col+x[1]] == ' ' || maze[row+x[0]][col+x[1]] == 'E' ){
+		int ans = solve(row + x[0], col + x[1],numAt + 1);
+		if ( ans != -1){
 		    return ans;
 		}
 	    }
-	    maze[rNext][cNext] = '.';
+	    maze[row][col] = '.';
+
+	  
 	}
 
 	    return -1; //so it compiles
