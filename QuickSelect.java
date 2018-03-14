@@ -3,21 +3,34 @@ import java.util.*;
 public class QuickSelect {
     public static int partition (int[] data, int start, int end) {
 	Random rand = new Random();
-	int randPivot = rand(end - start + 1) + start;
+	int indexPivot = rand(end - start + 1) + start;
 
 	int pivot = data[randPivot];
-	/*
-	List<Integer> fixed = new ArrayList<Integer>();
-	fixed.add(pivot);
-	for(int x = 0; x <data.length; x++) {
+	
+        swap(data, 0, indexPivot);
+	while( end > start) {
+	    if(data[start] < pivot) {
+		start++;
+	    }
+	    else {
+		swap(data, start, end);
+		end--;
+	    }
 	}
-	*/
-	int[] fixed = new int[end - start + 2];
-	fixed[fixed.length / 2 + 1] = pivot;
-	for(int x = 0; x < data.length; x++) {
-	    int index = 0;
-	    
 
+	swap(data, 0, end);
+	return end;
     }
+
+    public static int quickselect(int[] data, int k) {
+	if(data[k] < pivot) {
+	    partition(0,pivot)
+    }
+
+    public static void swap (int[] ary, int a, int b) {
+	int c = ary[a];
+	ary[a] = ary[b];
+	ary[b] = c;
+    }  
     
 }
