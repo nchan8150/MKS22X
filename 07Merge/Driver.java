@@ -1,5 +1,5 @@
 public class Driver {
-  private static final int INCREASE = 0;
+    private static final int INCREASE = 0;
   private static final int DECREASE = 1;
   private static final int STANDARD = 2;
   private static final int SMALL_RANGE = 3;
@@ -67,9 +67,9 @@ public class Driver {
      */
     long elapsedTime = System.currentTimeMillis() - startTime;
     if(Arrays.equals(start,result)){
-      System.out.println("PASS Case "+arg+". "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
+      System.out.println("PASS Case "+name(type)+" array, size:"+size+" "+elapsedTime/1000.0+"sec ");
     }else{
-      System.out.println("FAIL ! Case "+arg+" ERROR! "+name(type)+" array, size:"+size+"  ERROR!");
+      System.out.println("FAIL ! ERROR ! "+name(type)+" array, size:"+size+"  ERROR!");
     }
   }
 }
