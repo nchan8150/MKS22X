@@ -12,13 +12,14 @@ public class Merge {
 	    for(int x = lo; x <= hi; x++) {
 		temp[x] = data[x];
 	    }
-	msort(temp, data, lo, (lo+hi) / 2);
+
+	    msort(temp, data, lo, (lo+hi) / 2);
 	msort(temp, data, (lo+hi) / 2, hi);
 	merge(data, temp, lo, hi);
 	}
     }
 
-    public void merge(int[]data) {
-
+    public void merge(int[]data, int[]temp, int lo, int high) {
+	
     }
 }
