@@ -57,7 +57,7 @@ public class Merge {
 	    data[j+1] = key;
 	}
     }
-	
+    /*	
     public static void main(String[]args){
         int[] tester = {2,4,6,1,2,2,5,6,8};
         int[] temp = {0,0,0,0,0,0,0,0,0};
@@ -67,6 +67,7 @@ public class Merge {
         System.out.println(tester);
         
     }
+    */
 
   
 }
