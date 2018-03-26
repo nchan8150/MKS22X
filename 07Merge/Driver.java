@@ -1,5 +1,5 @@
 import java.util.Arrays;
- 
+public class Driver{
  //Sort testing code
   private static final int INCREASE = 0;
   private static final int DECREASE = 1;
@@ -74,3 +74,4 @@ import java.util.Arrays;
       System.out.println("FAIL ! ERROR ! "+name(type)+" array, size:"+size+"  ERROR!");
     }
   }
+}
