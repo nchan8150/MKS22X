@@ -1,63 +1,71 @@
+//some help from jerry
+
 import java.util.*;
 
 public class Quick{
 
     public static int quickselect(int[] data, int k) {
-	if(data[k] < pivot) {
-	    partition(0,pivot);
+	int start = 0;
+	int end = data.length - 1;
+	int[]temp = partition(data, start, end);
+	int low = temp[0];
+	int high = temp[1];
+	while(k < low || k > high) {
+	    if(k < low) {
+		end = low - 1;
+	    }
+	    else {
+		start = high;
+	    }
+	    temp = partition(data, start, end);
+	    low = temp[0];
+	    high = temp[1];
 	}
+	return data[low];
     }
 	    
-    public static int partition(int[] arr, int low, int high){
-        int pivot = arr[high]; 
-        int i = (low-1); // index of smaller element
-        for (int j=low; j<high; j++){
-            // If current element is smaller than or
-            // equal to pivot
-            if (arr[j] <= pivot){
-                i++;
- 
-                // swap arr[i] and arr[j]
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
- 
-        // swap arr[i+1] and arr[high] (or pivot)
-        int temp = arr[i+1];
-        arr[i+1] = arr[high];
-        arr[high] = temp;
- 
-        return i+1;
+    public static int[] partition(int[] arr, int low, int high){
+        int pivotIndex = (int)(Math.random() * (high - low) + low);
+	int pivot = arr[pivotIndex];
+	swap(arr, low, pivot);
+	int lt = low;
+	int i = lt + 1;
+	int gt = high;
+	while (i <= gt) {
+	    if(arr[i] <= pivot) {
+		swap(arr, i, lt);
+		i++;
+		lt++;
+	    }
+	    else if (arr[i] == pivot) {
+		i++;
+	    }
+	    else if (arr[i] > pivot) {
+		swap(arr, i, gt);
+		gt--;
+	    }
+	}
+	return new int[] {lt, i};		
     }
- 
-
-    void sort(int[] arr, int low, int high){
-        if (low < high){
-            /* pi is partitioning index, arr[pi] is 
-              now at right place */
-            int pi = partition(arr, low, high);
- 
-            // Recursively sort elements before
-            // partition and after partition
-            sort(arr, low, pi-1);
-            sort(arr, pi+1, high);
-        }
+       
+    public static void quicksort (int[] data) {
+        quicksorter(data, 0, data.length - 1);
     }
 
- 
-    // Driver program
-    public static void main(String[] args) {
-        int arr[] = {10, 7, 8, 9, 1, 5};
-        int n = arr.length;
- 
-        QuickSort ob = new QuickSort();
-        ob.sort(arr, 0, n-1);
- 
-        System.out.println("sorted array");
-        printArray(arr);
+    public static void quicksorter (int[] data, int start, int end) {
+	if (start < end) {
+	    int[] temp = partition(data, start, end);
+	    quicksorter(data, start, temp[0]);
+	    quicksorter(data, temp[1], end);
+	}
     }
+    
+    private static void swap(int[]arr, int x, int y) {
+	int i = arr[x];
+	arr[x] = arr[y];
+	arr[y] = i;
+    }
+    
     
     
 }
