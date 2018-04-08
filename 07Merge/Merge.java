@@ -7,15 +7,19 @@ public class Merge {
 	msort(data, temp, 0, data.length - 1);
     }
 
-    public static void msort(int[]data, int[]temp, int lo, int hi) {
-	if(hi - lo < 2) {
-	    insertionSort(temp);
-	    return;
+    private static void msort(int[]data, int[]temp, int lo, int hi) {
+	if(hi - lo < 11) {
+	    insertionSort(data, lo, hi);
 	}
-	msort(temp, data, lo, (lo+hi) / 2);
-	msort(temp, data, (lo+hi) / 2, hi);
-	merge(data, temp, lo, hi);
+	else {
+	    for(int x = lo; x <= hi; x++) {
+		temp[x] = data[x];
+	    }
+	    msort(temp, data, lo, (lo+hi) / 2);
+	    msort(temp, data, (lo+hi) / 2 + 1, hi);
+	    merge(data, temp, lo, hi);
 	}
+    }
 
     public static void merge(int[]data, int[]temp, int lo, int hi) {
 	int first = lo;
@@ -46,15 +50,16 @@ public class Merge {
 	    
     }
 
-    public static void insertionSort(int[] data) {
-	for(int i = 0; i < data.length; i++) {
-	    int key = data[i];
-	    int j = i - 1;
-	    while( j >= 0 && data[j] > key) {
-		data[j + 1] = data[j];
-		j = j- 1;
+    public static void insertionSort(int[] data, int lo, int hi){
+	int i;
+	for(int x = lo; x < hi + 1; i++) {
+	    int key = data[x];
+	    for(i = x; i > lo && key < data[i -1]; i--) {
+	    
+		data[i] = data[i - 1];
+  
 	    }
-	    data[j+1] = key;
+	    data[i] = key;
 	}
     }
     /*	
