@@ -1,4 +1,4 @@
-public class MyLinkedList {
+public class MyLinkedList <T> {
     private Node first, last;
     private int length;
 
@@ -16,11 +16,11 @@ public class MyLinkedList {
 	return ans;
     }
 
-    public int get(int index) {
+    public T get(int index) {
 	return getNode(index).getValue();
     }
 
-    public void set(int index, Integer value) {
+    public void set(int index, T value) {
 	if(index >= length || index < 0) {
 	    throw new IndexOutOfBoundsException();
 	}
@@ -32,7 +32,7 @@ public class MyLinkedList {
 	return length;
     }
 
-    public boolean add(Integer value){
+    public boolean add(T value){
 	Node create = new Node(value);
 	if (length == 0){
 	    first = create;
@@ -46,7 +46,7 @@ public class MyLinkedList {
 	return true;
     }
 
-    public void add(int index, Integer value) {
+    public void add(int index, T value) {
 	Node created = new Node(value);
 	if(index > length || index < 0) {
 	    throw new IndexOutOfBoundsException();
@@ -70,13 +70,13 @@ public class MyLinkedList {
 	
     }
 
-    public Integer remove(int index) {
+    public T remove(int index) {
 	if (index > length || index < 0) {
 	    throw new IndexOutOfBoundsException();
 	}
 
 	Node temp = getNode(index);
-	Integer removed = temp.getValue();
+	T removed = temp.getValue();
 		if (index == 0){
 		first = first.getNext();
 		first.setPrev(null);
@@ -93,7 +93,7 @@ public class MyLinkedList {
 		return removed;
     }
 
-    public boolean remove(Integer value){ 
+    public boolean remove(T value){ 
 	Node temp = first;
 	for (int x = 0; x < length; x++){
 	    if(temp.getValue().equals(value)){
@@ -105,7 +105,7 @@ public class MyLinkedList {
 	return false;
     }
 
-    public int indexOf(Integer value){
+    public int indexOf(T value){
 	Node temp = first;
 	for (int x = 0; x < length; x++){
 	    if (temp.getValue().equals(value)){
@@ -147,7 +147,7 @@ public class MyLinkedList {
 
     private class Node {
 	private Node next, prev;
-	private Integer data;
+	private T data;
 
 	public Node getNext() {
 	    return next;
@@ -157,11 +157,11 @@ public class MyLinkedList {
 	    return prev;
 	}
 
-	public Integer getValue() {
+	public T getValue() {
 	    return data;
 	}
 
-	public void setValue(Integer value) {
+	public void setValue(T value) {
 	    data = value;
 	}
 
@@ -177,7 +177,7 @@ public class MyLinkedList {
 	    return data + "";
 	}
 
-	private Node(Integer value) {
+	private Node(T value) {
 	    data = value;
 	    next = null;
 	    prev = null;
