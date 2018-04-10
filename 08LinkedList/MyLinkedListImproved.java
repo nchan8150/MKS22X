@@ -1,4 +1,4 @@
-public class MyLinkedListImproved <T> {
+public class MyLinkedListImproved <T extends Comparable<T>> {
     private Node first, last;
     private int length;
 
