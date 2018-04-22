@@ -188,7 +188,7 @@ public class MyLinkedListImproved <T extends Comparable<T>> {
 
 
     public class Sorts {
-	public static void radixsort(MyLinkedList<T> data) {
+	public void radixsort(MyLinkedList<T> data) {
 
 	}
     }
