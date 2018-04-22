@@ -1,23 +1,23 @@
 public class MyLinkedList {
-    private Node first, last;
-    private int length;
+   	private Node first, last;
+   	private int length;
 
     public String toString() {
-	String ans = "[";
-	Node temp = first;
-	while(temp != null) {
-	    ans += temp;
-	    if(temp.getNext() != null) {
-		ans += ", ";
-	    }
-	    temp = temp.getNext();
-	}
-	ans += "]";
-	return ans;
+		String ans = "[";
+		Node temp = first;
+		while(temp != null) {
+	    	ans += temp;
+	    	if(temp.getNext() != null) {
+				ans += ", ";
+	    	}
+	    	temp = temp.getNext();
+		}
+		ans += "]";
+		return ans;
     }
 
     public Integer get(int index) {
-	return getNode(index).getValue();
+		return getNode(index).getValue();
     }
 
     public void set(int index, Integer value) {
@@ -32,18 +32,18 @@ public class MyLinkedList {
 	return length;
     }
 
-    public boolean add(Integer value){
-	Node create = new Node(value);
-	if (length == 0){
-	    first = create;
-	}	
-	else{
-	    last.setNext(create);
-	    create.setPrev(last);			
-	}		
-	last = create;
-	length++;
-	return true;
+    public boolean add(Integer value) {
+      Node create = new Node(value);
+        if (length == 0) {
+            first = last = create;
+            length = 1;
+            return true;
+        }
+      last.setNext(create);
+      create.setPrev(last);
+      length ++;
+      last = create;
+      return true;
     }
 
     public void add(int index, Integer value) {
@@ -74,7 +74,6 @@ public class MyLinkedList {
 	if (index > length || index < 0) {
 	    throw new IndexOutOfBoundsException();
 	}
-
 	Node temp = getNode(index);
 	Integer removed = temp.getValue();
 		if (index == 0){
@@ -93,46 +92,45 @@ public class MyLinkedList {
 		return removed;
     }
 
-    public boolean remove(Integer value){ 
-	Node temp = first;
-	for (int x = 0; x < length; x++){
-	    if(temp.getValue().equals(value)){
-		remove(x);
-		return true;
-	    }
-	    temp = temp.getNext();
-	}	
-	return false;
+    
+    public boolean remove(Integer value) {
+      int x = indexOf(value);
+      if (x == -1) {
+        return false;
+      }
+      else {
+        remove(x);
+        return true;
+      }
     }
 
     public int indexOf(Integer value){
-	Node temp = first;
-	for (int x = 0; x < length; x++){
-	    if (temp.getValue().equals(value)){
-		return x;
-	    }
-	    temp = temp.getNext();
-	}
-	return -1;
+		Node chosen = first;
+		for (int x = 0; x < length; x++){
+	    	if (chosen.getValue().equals(value)){
+				return x;
+	    	}
+	    	chosen = chosen.getNext();
+		}
+		return -1;
     }
 
     private Node getNode(int index){
 	if(index >= length || index < 0){
 	    throw new IndexOutOfBoundsException(); 
 	}
-	
-	Node temp = first;
+	Node gotti = first;
 	for (int x = 0; x < index; x++){
-	    temp = temp.getNext();
+	    gotti = gotti.getNext();
 	}
 		
-	return temp;
+	return gotti;
     }
 
     public void clear() {
-	first = null;
-	last = null;
-	length = 0;
+		first = null;
+		last = null;
+		length = 0;
     }
 
     public MyLinkedList() {
