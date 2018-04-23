@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable<T> {
    	private Node first, last;
    	private int length;
@@ -135,6 +137,10 @@ public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable<
 		first = null;
 		last = null;
 		length = 0;
+    }
+
+    public Iterator<T> iterator() {
+      return new ImprovedIterator(first);
     }
 
     public int max() {
