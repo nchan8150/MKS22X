@@ -96,4 +96,13 @@ public class MyHeap<T extends Comparable<T>>{
 		arr[y] = temp;
 	}
 
+	public String toString(){
+		String ans = "[";
+		for(int x = 0; x < size; x++){
+	    	ans += data[x] + ", ";
+		}
+		ans += "]";
+		return ans;
+    }
+
 }
