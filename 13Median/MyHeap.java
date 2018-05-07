@@ -7,18 +7,21 @@ public class MyHeap<T extends Comparable<T>>{
 	private boolean max;
 	private int size; 
 
+    @SuppressWarnings("unchecked")
     public MyHeap() {
     	data = (T[]) new Comparable[10];
 		max = true;
 		size = 0;
     }
 
+    @SuppressWarnings("unchecked")
     public MyHeap(boolean type){
     	data = (T[]) new Comparable[10];
 		max = type;
 		size = 0;
 	}
 
+    @SuppressWarnings("unchecked")
     public void add (T s) {
     	if(data.length == size){
     		T[] temp = (T[]) new Comparable[2 * size];
@@ -32,6 +35,7 @@ public class MyHeap<T extends Comparable<T>>{
    		size++;
     }
 
+    @SuppressWarnings("unchecked")
     public T remove() {
     	if (size == 0) {
 			throw new IllegalStateException();
@@ -52,6 +56,7 @@ public class MyHeap<T extends Comparable<T>>{
     	return size;
     }
 
+    @SuppressWarnings("unchecked")
     public void swapUp(T s, int index) {
     	if(max == true) {
     		if(s.compareTo(data[(index - 1) / 2]) > 0) {
@@ -67,6 +72,7 @@ public class MyHeap<T extends Comparable<T>>{
     	}
     }
 
+    @SuppressWarnings("unchecked")
     public void swapDown(T s, int index) {
     	if(max == true) {
     		if(s.compareTo(data[2 * index + 2]) < 0 && data[2 * index + 2].compareTo(data[2 * index + 1]) > 0) {
