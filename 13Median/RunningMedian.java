@@ -1,17 +1,20 @@
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class RunningMedian{
 
 	private int size;
 	private MyHeap<Double> max;
 	private MyHeap<Double> min;
 
+	@SuppressWarnings("unchecked")
 	public RunningMedian() {
 		size = 0;
 		max = new MyHeap();
 		min = new MyHeap(false);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void add (Double added) {
 		if(max.size() > min.size() + 1){
             min.add(max.remove());
@@ -25,6 +28,7 @@ public class RunningMedian{
         size++;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Double getMedian() {
 		if(min.size() > max.size()){
             return min.peek();
