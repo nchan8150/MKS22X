@@ -1,4 +1,4 @@
-//got operations.contains(str) idea from Amit.
+/got operations.contains(str) idea from Amit.
 
 import java.util.*;
 import java.lang.*;

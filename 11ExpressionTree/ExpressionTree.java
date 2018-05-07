@@ -3,26 +3,29 @@ public class ExpressionTree{
     /*return the expression as an infix notation string with parenthesis*/
     /* The sample tree would be: "( 3 + (2 * 10))"     */
     public String toString(){
-	String ans = "(";
 	if(isValue()) {
-	    return ans;
+	    return "" + getValue();
 	}
-	return "";
+	return "( " + getLeft().toString() + " " + getOp() + " " + getRight() + " )";
     }
   
     /*return the expression as a postfix notation string without parenthesis*/
     /* The sample tree would be: "3 2 10 * +"     */
     public String toStringPostfix(){
-	/*you are to write this method*/
-	return "";
+		if(isValue()) {
+			return "" + getValue();
+		}
+		return getLeft().toStringPostfix() + " " + getRight().toStringPostfix() + " " + getOp();
     }
     
     /*return the expression as a prefix notation string without parenthesis*/
     /* The sample tree would be: "+ 3 * 2 10"     */
     
     public String toStringPrefix(){
-	/*you are to write this method*/
-	return "";
+		if(isValue()){
+			return "" + getValue();
+		} 
+	return getOp() + " " + getLeft().toStringPrefix() + " " + getRight().toStringPrefix();
     }
     
     
@@ -34,7 +37,7 @@ public class ExpressionTree{
 	    return getValue();
 	}
 	else{
-	    return perform(getOp(), getLeft().evaluate(), getRight().evaluate());
+	    return apply(getOp(), getLeft().evaluate(), getRight().evaluate());
 	}
     }
     
@@ -43,21 +46,21 @@ public class ExpressionTree{
     
     /*use the correct operator on both a and b, and return that value*/
     private double apply(char op, double a, double b){
-	if (op.equals('+')) {
-	    return a + b;
-	}
-	if (op.equals('-')) {
-	    return a - b;
-	}
-	if (op.equals('*')) {
-	    return a * b;
-	}
-	if (op.equals('/')) {
-	    return a / b;
-	}
-	if (op.equals('%')) {
-	    return a % b;
-	}	
+		if (op == '+') {
+	    	return a + b;
+		}
+		if (op == '-') {
+	    	return a - b;
+		}
+		if (op == '*') {
+		    return a * b;
+		}
+		if (op == '/') {
+	    	return a / b;
+		}
+		else{
+	    	return a % b;
+		}	
     }
 
     
@@ -152,3 +155,4 @@ public class ExpressionTree{
 	System.out.println(ex.evaluate());   
     }
 }
+
