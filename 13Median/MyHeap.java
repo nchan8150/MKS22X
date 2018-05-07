@@ -44,7 +44,7 @@ public class MyHeap<T extends Comparable<T>>{
 		return removed;
 	}
 
-    public T peak() {
+    public T peek() {
     	return data[0];
     }
 
@@ -104,5 +104,6 @@ public class MyHeap<T extends Comparable<T>>{
 		ans += "]";
 		return ans;
     }
+
 
 }
