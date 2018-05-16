@@ -21,17 +21,17 @@ public class MyHeap<T extends Comparable<T>>{
     
     public void add (T s) {
     	if(data.length == size){
-    		T[] temp = (T[]) new Comparable[2 * size];
-		for (int x = 0; x < data.length; x++) {
-		    temp[x] = data[x];
-		}
-		data = temp;
+	    T[] temp = (T[]) new Comparable[2 * size];
+	    for (int x = 0; x < data.length; x++) {
+		temp[x] = data[x];
+	    }
+	    data = temp;
     	}
     	data[size] = s;
 	swapUp(s, size);
-   		size++;
+	size++;
     }
-
+    
     public T remove() {
     	if (size == 0) {
 	    throw new IllegalStateException();
@@ -79,7 +79,7 @@ public class MyHeap<T extends Comparable<T>>{
 	    }
     	}
     }
-    
+
     public void swapDown(T s, int index) {
     	if(max == true) {
 	    if(s.compareTo(data[2 * index + 2]) < 0 && data[2 * index + 2].compareTo(data[2 * index + 1]) > 0) {
@@ -102,7 +102,6 @@ public class MyHeap<T extends Comparable<T>>{
     		}
     	} 
     }
-    
     
     private void swap(T[] arr, int x, int y) {
 	T temp = arr[x];
