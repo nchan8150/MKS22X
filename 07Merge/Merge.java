@@ -1,3 +1,5 @@
+//no idea why I have only 2 passed test cases and 0 failed ones so I asked jerry for help.
+
 import java.util.*;
 
 public class Merge {
@@ -8,46 +10,45 @@ public class Merge {
     }
 
     private static void msort(int[]data, int[]temp, int lo, int hi) {
-	if(hi - lo < 11) {
+	if(hi - lo <= 2) {
 	    insertionSort(data, lo, hi);
+	    return;
 	}
-	else {
-	    for(int x = lo; x <= hi; x++) {
+	for(int x = lo; x <= hi; x++) {
 		temp[x] = data[x];
-	    }
-	    msort(temp, data, lo, (lo+hi) / 2);
-	    msort(temp, data, (lo+hi) / 2 + 1, hi);
-	    merge(data, temp, lo, hi);
 	}
-    }
+    msort(temp, data, lo, (lo+hi) / 2);
+    msort(temp, data, (lo+hi) / 2 + 1, hi);
+	merge(data, temp, lo, (lo+hi) / 2, hi);
+	}
 
-    public static void merge(int[]data, int[]temp, int lo, int hi) {
-	int first = lo;
-	int next = ((lo + hi) / 2) + 1;
-	for (int x = lo; x <= hi; x++) {
-	    if(first > (lo + hi) / 2) {
-		temp[x] = data[next];
-		next++;
-	    }
-	    else if (next <= hi) {
-		if(data[first] < data[next]) {
-		    temp[x] = data[first];
-		    first++;
-		}
-		else{
-		    temp[x] = data[first];
-		    next++;			 
-		}
-	    }
-	    else{
-		temp[x] = data[first];
-		first++;
-	    }
-	}
-	for (int y = lo; y < hi; y++) {
-	    data[y] = temp[y];
-	}
-	    
+    public static void merge(int[]data, int[]temp, int lo, int mid, int hi){
+        int num1 = lo;
+        int num2 = mid + 1;
+        int counter = lo;
+        while (num1 <= mid && num2 <=   hi){
+            if (temp[num1] < temp[num2]){
+                data[counter] = temp[num1];
+                num1 ++;
+            }
+            else{
+                data[counter] = temp[num2];
+                num2++;
+            }
+            counter ++;
+        }
+        if (num1 <= mid ){
+            for(int x = num1; x <= mid; x++){
+                data[counter] = temp[x];
+                counter++;
+            }
+        }
+        else{
+            for (int y = num2; y <=hi ; y++){
+                data[counter] = temp[y];
+                counter++;
+            }
+        }
     }
 
     public static void insertionSort(int[] data, int lo, int hi){
