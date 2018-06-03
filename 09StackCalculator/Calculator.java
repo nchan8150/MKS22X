@@ -1,4 +1,4 @@
-/got operations.contains(str) idea from Amit.
+//got operations.contains(str) idea from Amit.
 
 import java.util.*;
 import java.lang.*;
@@ -47,7 +47,7 @@ public class Calculator {
     	}
     	return stack.peek();
     }
-/*
+
     public static void main(String[] args) {
     	System.out.println(eval("5 4 +")); //Should be 9
     	System.out.println(eval("5 4 -")); //1
@@ -56,5 +56,5 @@ public class Calculator {
     	System.out.println(eval("11 3 - 4 + 2.5 *")); //30
     	System.out.println(eval("8 2 + 99 9 - * 2 + 9 -")); //893
     }
-    */
+    
 }
