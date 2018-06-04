@@ -1,68 +1,65 @@
 import java.util.*;
 
-@SuppressWarnings("unchecked")
-public class RunningMedian{
+public class RunningMedian extends MyHeap{
 
-	private int size;
-	private MyHeap<Double> max;
-	private MyHeap<Double> min;
+    private MyHeap<Double> min;
+    private MyHeap<Double> max;
+    private int size;
+    
+    public RunningMedian(){
+        max = new MyHeap<Double>();
+        min = new MyHeap<Double>(false);
+        size = 0;
+    }
 
-	@SuppressWarnings("unchecked")
-	public RunningMedian() {
-		size = 0;
-		max = new MyHeap();
-		min = new MyHeap(false);
-	}
 
-	@SuppressWarnings("unchecked")
-	public void add (Double added) {
-		if(max.size() > min.size() + 1){
-            min.add(max.remove());
-        }
-        else if(size() == 0 || added < min.peek()){
-            min.add(added);
-        }
-        else if(added > min.peek()){
-            max.add(added);
-        }
-        size++;
-	}
+    public int size(){
+        return size;
+    }
 
-	@SuppressWarnings("unchecked")
-	public Double getMedian() {
-		if(min.size() > max.size()){
-            return min.peek();
+
+    public double getMedian(){
+        if (size() == 0){
+            throw new NoSuchElementException();
         }
-        else if (min.size() < max.size()){
+        if (max.size() > min.size()){
             return max.peek();
         }
-        else{
-            return (max.peek() + min.peek())/2;
+        if (min.size() > max.size()){
+            return min.peek();
         }
-	}
+        return (max.peek() + min.peek()) / 2.0;
+    }
+    
+    public void add(double added){
+        if (size() == 0 || added > min.peek()){
+            min.add(added);
+        }
+        else{
+            max.add(added);
+        }
+        if (min.size() - max.size() > 1){
+            double temp = min.remove();
+            max.add(temp);
+        }
+        if (max.size() - min.size() > 1){
+            double temp = max.remove();
+            min.add(temp);
+        }
+        size++;
+    }
 
-	public int size() {
-		return size;
-	}
-
-	public static void main(String[] args){
-        RunningMedian test = new RunningMedian();
-        test.add(0.);
-        test.add(13.);
-        test.add(9.);
-        test.add(123.);
-        test.add(5.);
-        test.add(63.);
-        test.add(3.);
-        test.add(13.);
-        test.add(74.);
-        test.add(13.);
-        
-        
-        
-        
-        
-        System.out.println(test);
-        System.out.println(test.getMedian());
-    }	
+    /*
+    public static void main(String[]args){
+    RunningMedian x = new RunningMedian();
+    x.add(10);
+    x.add(2);
+    x.add(10);
+    x.add(7);
+    x.add(5);
+    x.add(13);
+    x.add(7);
+    System.out.println(x.getMedian());
+    }
+    */
 }
