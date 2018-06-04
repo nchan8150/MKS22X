@@ -1,3 +1,6 @@
+//help for swapping from Peter
+//test cases from Crystal
+
 import java.util.*;
 
 @SuppressWarnings("unchecked")
@@ -9,8 +12,8 @@ public class MyHeap<T extends Comparable<T>>{
     
     public MyHeap() {
     	data = (T[]) new Comparable[10];
-	max = true;
-	size = 0;
+		max = true;
+		size = 0;
     }
     
     public MyHeap(boolean type){
@@ -28,137 +31,133 @@ public class MyHeap<T extends Comparable<T>>{
 	    data = temp;
     	}
     	data[size] = s;
-	swapUp(s, size);
+	swapUp(size);
 	size++;
     }
     
     public T remove() {
     	if (size == 0) {
 	    throw new IllegalStateException();
-	}
-	T removed = data[0];
-	data[0] = data[size-1];
-	swapDown(data[size-1],0);
-	data[size-1] = null;
-	size --;
-	return removed;
+		}
+		T ans = data[0];
+		data[0] = data[size-1];
+		data[size-1] = null;
+		size-=1;
+		swapDown(0);
+
+		return ans;
     }
-    
-    public T peak() {
+
+    public T peek() {
     	return data[0];
     }
     
     public int size() {
     	return size;
     }
-    /*
-    private void swapUp(T s, int index){
-	swap(i, (i-1)/2);
-    }
-    
-    private void swapDown(T s, int index){
-        swap(i, 2*i + 1);
-    }
-    
-    private void pushDownRight(int i){
-        swap(i, 2*i + 2);
-    }
-    */
-    
-    public void swapUp(T s, int index) {
-    	if(max == true) {
-	    if(s.compareTo(data[(index - 1) / 2]) > 0) {
-		swap(data, (index - 1) / 2, index);
-		swapUp(s, (index - 1) / 2);
-    		}
-    	}
-    	else if(max == false) { 
-	    if(s.compareTo(data[(index - 1) / 2]) < 0) {
-		swap(data, (index - 1) / 2, index);
-		swapUp(s, (index - 1) / 2);
-	    }
-    	}
-    }
 
-    public void swapDown(T s, int index) {
-    	if(max == true) {
-	    if(s.compareTo(data[2 * index + 2]) < 0 && data[2 * index + 2].compareTo(data[2 * index + 1]) > 0) {
-    			swap(data, index, 2 * index + 2);
-    			swapDown(s, 2 * index + 2);
-	    }
-	    else if(s.compareTo(data[2 * index + 1]) < 0 && data[2 * index + 1].compareTo(data[2 * index + 2]) > 0) {
-		swap(data, index, 2 * index + 1);
-		swapDown(s, 2 * index + 1);
-	    }
-    	}
-    	else if (max == false) {
-	    if(s.compareTo(data[2 * index + 2]) > 0 && data[2 * index + 2].compareTo(data[2 * index + 1]) < 0) {
-		swap(data, index, 2 * index + 2);
-		swapDown(s, 2 * index + 2);
-	    }
-	    else if(s.compareTo(data[2 * index + 1]) > 0 && data[2 * index + 1].compareTo(data[2 * index + 2]) < 0) {
-		swap(data, index, 2 * index + 1);
-		swapDown(s, 2 * index + 1);
-    		}
-    	} 
-    }
+    private void swapUp(int ind) {
+		int pos = (ind-1)/2;
+
+		while (max && (pos>=0) && (data[ind].compareTo(data[pos]))>0){
+			swap(data,pos,ind);
+			ind = pos;
+			pos = (ind - 1)/2;
+		}
+		while (!max && (pos>=0) && (data[ind].compareTo(data[pos]))<0){
+			swap(data,pos,ind);
+			ind = pos;
+			pos = (ind - 1)/2;
+		}
+
+	}
     
     private void swap(T[] arr, int x, int y) {
-	T temp = arr[x];
-	arr[x] = arr[y];
+		T temp = arr[x];
+		arr[x] = arr[y];
 		arr[y] = temp;
     }
+
+    private void swapDown(int ind) {
+		int pos1 = 2*ind+1;
+		int pos2 = 2*ind+2;
+		if (max) {
+			if (((pos1 < size) && (data[ind].compareTo(data[pos1]) < 0)) || 
+				((pos2 < size) && (data[ind].compareTo(data[pos2]) < 0))) {
+				if (pos2 >= size || data[pos1].compareTo(data[pos2]) > 0) {
+					swap(data,pos1,ind);
+					ind = pos1;
+					swapDown(pos1);
+				}
+				else if (pos2 < size && data[ind].compareTo(data[pos2]) < 0) {
+					swap(data,pos2,ind);
+					ind = pos2;
+					swapDown(pos2);
+				}
+			}
+		}
+		else {
+			if ((pos1 < size) && (data[ind].compareTo(data[pos1]) > 0) ||
+				(pos2 < size) && (data[ind].compareTo(data[pos2]) > 0)) {
+				if (pos2 >= size || data[pos1].compareTo(data[pos2]) < 0) {
+					swap(data,pos1,ind);
+					ind = pos1;
+					swapDown(pos1);
+				}
+				else if(data[ind].compareTo(data[pos2]) > 0){
+					swap(data,pos2,ind);
+					ind = pos2;
+					swapDown(pos2);
+				}
+			}
+		}
+	}
     
     public String toString(){
-	String ans = "[";
-	for(int x = 0; x < size; x++){
+		String ans = "[";
+		for(int x = 0; x < size; x++){
 	    	ans += data[x] + ", ";
-	}
-	ans += "]";
-	return ans;
+		}
+		ans += "]";
+		return ans;
     }
-    
-    public static void main(String[]args){
-	MyHeap<String> test = new MyHeap<>(true);
-	test.add("0");
-	test.add("1");
-	test.add("5");
-	test.add("8");
-	test.add("2");
-	test.add("1");  
-	test.add("0");
-	test.add("1");
-	test.add("5");
-	test.add("8");
-	test.add("2");
-	test.add("1");  
-	test.add("0");
-	test.add("1");
-	test.add("5");
-	test.add("8");
-	test.add("2");
-	test.add("1");  
-	for(int i = 10; i > 0; i--){
-	    test.remove();
-	}
-	System.out.println(test);
+/*    
+    public static void main(String[] args) {
+    MyHeap<String> a = new MyHeap<>(false);
+    String[] b = new String[20];
+    for(int i = 0; i < 20; i++){
+      int temp = (int)(Math.random() * 26) + 97;
+      char value = (char)temp;
+      a.add("" + value);
+      b[i] = "" + value;
     }
-    /*
-    public static void main(String[] args){
-	MyHeap<Integer> heap = new MyHeap<>();
-	for(int i = 0; i < 15; i++){
-	    heap.add((int)(i*Math.random()*10));
-	}
-	System.out.println(heap);
-	heap.remove();
-	System.out.println(heap);
-	
-	heap.remove();
-	System.out.println(heap);
-	
-	heap.remove();
-	
-	System.out.println(heap);
+
+    Arrays.sort(b);
+
+    System.out.println("MyHeap: " + a);
+    System.out.println("Arrays: "+ Arrays.toString(b));
+
+    boolean isCorrect = true;
+    for(int i = 0; i < 20; i++){
+      //System.out.println("size: " + a.size());
+      //System.out.println("heap before: " + a.toT());
+      String temp = a.remove();
+      if(!(temp.equals(b[i]))){
+        System.out.println("there is an error");
+        System.out.println(temp);
+        System.out.println(b[i]);
+        System.out.println(a);
+        isCorrect = false;
+      }
     }
-    */   
+
+    if(isCorrect){
+      System.out.println("Your heap is correct!");
+    }
+    else{
+      System.out.println("There are error(s)");
+    }
+
+  }  
+  */
 }
