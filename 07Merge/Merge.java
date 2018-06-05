@@ -5,21 +5,21 @@ import java.util.*;
 public class Merge {
 
     public static void mergesort(int[] data) {
-		int[] temp = new int[data.length];
-		msort(data, temp, 0, data.length - 1);
+		msort(data, new int[data.length], 0, data.length-1 );
     }
 
     private static void msort(int[]data, int[]temp, int lo, int hi) {
-	if(hi - lo <= 2) {
+	int mid = (lo/2) + (hi/2);
+    if(hi - lo <= 2) {
 	    insertionSort(data, lo, hi);
 	    return;
 	}
 	for(int x = lo; x <= hi; x++) {
 		temp[x] = data[x];
 	}
-    msort(temp, data, lo, (lo+hi) / 2);
-    msort(temp, data, (lo+hi) / 2 + 1, hi);
-	merge(data, temp, lo, (lo+hi) / 2, hi);
+    msort(temp, data, lo, mid);
+    msort(temp, data, mid + 1, hi);
+	merge(data, temp, lo, mid, hi);
 	}
 
     public static void merge(int[]data, int[]temp, int lo, int mid, int hi){
@@ -63,18 +63,6 @@ public class Merge {
 	    data[i] = key;
 	}
     }
-    /*	
-    public static void main(String[]args){
-        int[] tester = {2,4,6,1,2,2,5,6,8};
-        int[] temp = {0,0,0,0,0,0,0,0,0};
-        //merge(tester,temp,0, 9/2,9);
-        //print(temp);
-        mergesort(tester);
-        System.out.println(tester);
-        
-    }
-    */
-
   
 }
 
